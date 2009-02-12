@@ -1,3 +1,14 @@
+# About This Fork
+
+I've made a few customizations.
+
+Some of these are things I find helpful on a Mac, like setting Command = Meta and Option = Hyper, and some of these are just dumb things I've gotten used to over the years.  
+
+I'm not making use of the user- or system-specific init files ESK provides, because I want the same set of customizations on multiple machines where the hostname and username differs.  So that's no good for me.
+
+Feel free to play around, but I'm making no guarantees that this is going to work for you like it works for me.
+
+
 # Emacs Starter Kit
 
 This should provide a saner set of defaults than you get normally with

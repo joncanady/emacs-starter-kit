@@ -18,6 +18,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit/jabber"))
 
+
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
@@ -46,18 +47,20 @@
 
 (require 'starter-kit-defuns)
 (require 'starter-kit-bindings)
-(require 'starter-kit-misc)
 (require 'starter-kit-registers)
 (require 'starter-kit-eshell)
 (require 'starter-kit-lisp)
 (require 'starter-kit-perl)
+(require 'starter-kit-php)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
+(require 'starter-kit-macos)
+(require 'starter-kit-misc)
 
 (regen-autoloads)
 (load custom-file 'noerror)
 
-;; More complicated packages that haven't made it into ELPA yet
+;; More complicated packages that haven't made it into EL(i(PA yet
 
 (autoload 'jabber-connect "jabber" "" t)
 ;; TODO: rinari, slime
@@ -65,6 +68,7 @@
 ;; Work around a bug on OS X where system-name is FQDN
 (if (eq system-type 'darwin)
     (setq system-name (car (split-string system-name "\\."))))
+
 
 ;; You can keep system- or user-specific customizations here
 (setq system-specific-config (concat dotfiles-dir system-name ".el")

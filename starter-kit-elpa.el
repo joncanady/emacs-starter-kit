@@ -10,6 +10,7 @@
                                    'nxml
                                    'gist
                                    'rinari
+                                   'weblogger
                                ;; To submit
 ;;;                                "magit"
 ;;;                                "paredit"

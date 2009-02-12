@@ -13,8 +13,7 @@
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(setq visible-bell t
-      font-lock-maximum-decoration t
+(setq font-lock-maximum-decoration t
       inhibit-startup-message t
       transient-mark-mode t
       color-theme-is-global t
@@ -31,8 +30,8 @@
       save-place-file (concat dotfiles-dir "places"))
 
 ;; Set this to whatever browser you use
-(setq browse-url-browser-function 'browse-url-firefox)
-;; (setq browse-url-browser-function 'browse-default-macosx-browser)
+;; (setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-browser-function 'browse-default-macosx-browser)
 ;; (setq browse-url-browser-function 'browse-default-windows-browser)
 ;; (setq browse-url-browser-function 'browse-default-kde)
 ;; (setq browse-url-browser-function 'browse-default-epiphany)
@@ -101,18 +100,30 @@
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml" . php-mode))
 
-;; Cosmetics
 
-(eval-after-load 'diff-mode
-  '(progn
-     (set-face-foreground 'diff-added "green4")
-     (set-face-foreground 'diff-removed "red3")))
+;; weblogger
+(global-set-key "\C-cbs" 'weblogger-start-entry)
 
-(eval-after-load 'magit
-  '(progn
-     (set-face-foreground 'magit-diff-add "green3")
-     (set-face-foreground 'magit-diff-del "red3")))
+
+
+;; Customizations (not user- or system-based)
+(zenburn)
+(speedbar 1)
+(setq-default truncate-lines t)
+
+;; speedbar needs to recognize PHP files
+(speedbar-add-supported-extension ".php") ; not necessarily required
+(speedbar-add-supported-extension ".phtml") ; for Zend Views
+(speedbar-add-supported-extension ".ini") ; config files
+(add-hook 'php-mode-user-hook 'semantic-default-java-setup)
+(add-hook 'php-mode-user-hook
+         (lambda ()
+           (setq imenu-create-index-function
+                 'semantic-create-imenu-index)
+           )) 
+
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
