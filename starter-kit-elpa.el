@@ -45,6 +45,7 @@
 
 Windows does not have the network-interface-list function, so we
 just have to assume it's online."
+  ;; TODO how could this work on Windows?
   (if (and (functionp 'network-interface-list)
            (network-interface-list))
       (some (lambda (iface) (unless (equal "lo" (car iface))
@@ -54,6 +55,12 @@ just have to assume it's online."
     t))
 
 ;; On your first run, this should pull in all the base packages.
-(when (esk-online?) (ignore-errors (starter-kit-elpa-install)))
+(when (esk-online?) (ignore-errors (with-timeout (15)
+                                     (starter-kit-elpa-install))))
+
+(unless (functionp 'idle-highlight)
+  ;; TODO: Quick workaround for a problem folks are reporting until I
+  ;; get a chance to investigate further.
+  (defun idle-highlight () (interactive)))
 
 (provide 'starter-kit-elpa)

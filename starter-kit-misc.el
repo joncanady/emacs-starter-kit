@@ -67,12 +67,11 @@
 (set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
-(add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'textile-mode-hook 'auto-fill-mode)
-(add-hook 'textile-mode-hook 'flyspell-mode)
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-(add-hook 'markdown-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+
+(defvar coding-hook nil
+  "Hook that gets run on activation of any programming mode.")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
@@ -102,7 +101,10 @@
 (add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml" . php-mode))
 
+;; Default to unified diffs
+(setq diff-switches "-u")
 
+;; Cosmetics
 (setq c-default-style "bsd"
       c-basic-offset 2)
 
@@ -146,6 +148,10 @@
 ;; http://ozmm.org/posts/textmate_minor_mode.html
 (require 'textmate')
 (textmate-mode)
+
+(eval-after-load 'nxhtml
+  '(eval-after-load 'zenburn
+     '(set-face-background 'mumamo-background-chunk-submode "gray22")))
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
