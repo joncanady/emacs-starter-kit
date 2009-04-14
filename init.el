@@ -32,6 +32,7 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
+(require 'loaddefs)
 
 ;; this must be loaded before ELPA since it bundles its own
 ;; out-of-date js stuff. TODO: fix it to use ELPA dependencies
@@ -45,24 +46,25 @@
 
 ;; Load up starter kit customizations
 
+(require 'starter-kit-php)
 (require 'starter-kit-defuns)
 (require 'starter-kit-bindings)
 (require 'starter-kit-registers)
 (require 'starter-kit-eshell)
 (require 'starter-kit-lisp)
 (require 'starter-kit-perl)
-(require 'starter-kit-php)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
 (require 'starter-kit-macos)
-(require 'starter-kit-misc)
 
 (regen-autoloads)
 (load custom-file 'noerror)
 
+(require 'starter-kit-misc)
+
+
 ;; More complicated packages that haven't made it into EL(i(PA yet
 
-(autoload 'jabber-connect "jabber" "" t)
 ;; TODO: rinari, slime
 
 ;; Work around a bug on OS X where system-name is FQDN

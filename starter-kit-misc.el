@@ -103,15 +103,17 @@
 (add-to-list 'auto-mode-alist '("\\.phtml" . php-mode))
 
 
-;; weblogger
-(global-set-key "\C-cbs" 'weblogger-start-entry)
+(setq c-default-style "bsd"
+      c-basic-offset 2)
 
+(setq tab-width 2)
 
 
 ;; Customizations (not user- or system-based)
 (zenburn)
-(speedbar 1)
+;; (speedbar 1)
 (setq-default truncate-lines t)
+(require 'weblogger)
 
 ;; speedbar needs to recognize PHP files
 (speedbar-add-supported-extension ".php") ; not necessarily required
@@ -125,5 +127,26 @@
            )) 
 
 
+;; speedbar needs to recognize common rails files
+(speedbar-add-supported-extension ".yml")
+(speedbar-add-supported-extension ".yaml")
+(speedbar-add-supported-extension ".rb")
+(speedbar-add-supported-extension ".html")
+(speedbar-add-supported-extension ".erb")
+
+
+;; old projects have so many wrong line-endings
+(defun dos-unix ()
+  (interactive)
+  (goto-char (point-min))
+  (while (search-forward "\r" nil t) (replace-match "")))
+
+
+;; textmate minor mode is awesome
+;; http://ozmm.org/posts/textmate_minor_mode.html
+(require 'textmate')
+(textmate-mode)
+
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
+
