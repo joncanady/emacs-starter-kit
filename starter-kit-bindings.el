@@ -120,6 +120,9 @@
 
  (global-set-key "\C-l" 'goto-line) ; [Ctrl]-[L]
 
+;; Mostly for aquamacs
+(global-set-key "\M-{" 'previous-tab-or-buffer)
+(global-set-key "\M-}" 'next-tab-or-buffer)
 
 (provide 'starter-kit-bindings)
 ;;; starter-kit-bindings.el ends here

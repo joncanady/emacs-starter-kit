@@ -86,10 +86,16 @@ exec-to-string command, but it works and seems fast"
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
 
+(add-to-list 'load-path "~/.emacs.d/elpa-to-submit/rinari/")
+(require 'rinari)
+
+
 ;; Rinari (Minor Mode for Ruby On Rails)
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
 	    'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
+
+(setq rinari-tags-file-name "TAGS")
 
 ;; TODO: set up ri
 ;; TODO: electric
