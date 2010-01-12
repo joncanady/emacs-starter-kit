@@ -66,6 +66,8 @@
 ;; More complicated packages that haven't made it into EL(i(PA yet
 
 ;; TODO: slime
+(require 'ns-platform-support)
+(ns-extended-platform-support-mode 1)
 
 ;; Work around a bug on OS X where system-name is FQDN
 (if (eq system-type 'darwin)

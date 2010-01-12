@@ -124,5 +124,9 @@
 (global-set-key "\M-{" 'previous-tab-or-buffer)
 (global-set-key "\M-}" 'next-tab-or-buffer)
 
+
+;; Makes me happier when I go to other Mac apps
+(global-set-key "\M-s" 'save-buffer)
+(global-set-key "\M-o" 'find-file)
 (provide 'starter-kit-bindings)
 ;;; starter-kit-bindings.el ends here

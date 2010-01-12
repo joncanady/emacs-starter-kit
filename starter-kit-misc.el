@@ -118,7 +118,6 @@
 ; (zenburn)
 ;; (speedbar 1)
 (setq-default truncate-lines t)
-(require 'weblogger)
 
 ;; speedbar needs to recognize PHP files
 (speedbar-add-supported-extension ".php") ; not necessarily required
@@ -259,6 +258,17 @@ With arg copies and reinserts last line."
 (color-theme-rblue)
 (set-face-background 'hl-line "#330")
 
+
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin"))
+(setq exec-path (append exec-path '("/opt/local/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/mysql/bin"))
+(setq exec-path (append exec-path '("/usr/local/mysql/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/local/sbin"))
+(setq exec-path (append exec-path '("/opt/local/sbin")))
+
+(setq c-auto-newline t)
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
