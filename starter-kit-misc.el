@@ -5,20 +5,24 @@
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
-  (tool-bar-mode -1)
+  (mouse-wheel-mode t)
   (blink-cursor-mode -1))
 
-(mouse-wheel-mode t)
+(add-hook 'before-make-frame-hook 'turn-off-tool-bar)
+
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+(ansi-color-for-comint-mode-on)
 
 (setq font-lock-maximum-decoration t
+      echo-keystrokes 0.1
       inhibit-startup-message t
       transient-mark-mode t
       color-theme-is-global t
-      delete-by-moving-to-trash t
       shift-select-mode nil
+      mouse-yank-at-point t
+      require-final-newline t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
       whitespace-style '(trailing lines space-before-tab
@@ -28,6 +32,9 @@
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       xterm-mouse-mode t
       save-place-file (concat dotfiles-dir "places"))
+
+(add-to-list 'safe-local-variable-values '(lexical-binding . t))
+(add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
 ;; Set this to whatever browser you use
 ;; (setq browse-url-browser-function 'browse-url-firefox)
@@ -45,9 +52,6 @@
 ;; Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
 
-;; You really don't need this; trust me.
-(menu-bar-mode -1)
-
 ;; Save a list of recent files visited.
 (recentf-mode 1)
 
@@ -60,7 +64,7 @@
   (setq ido-enable-prefix nil
         ido-enable-flex-matching t
         ido-create-new-buffer 'always
-        ido-use-filename-at-point t
+        ido-use-filename-at-point 'guess
         ido-max-prospects 10))
 
 (set-default 'indent-tabs-mode nil)
@@ -104,6 +108,11 @@
 ;; hi-line
 (global-hl-line-mode 1)
 
+(eval-after-load 'grep
+  '(when (boundp 'grep-find-ignored-files)
+    (add-to-list 'grep-find-ignored-files "target")
+    (add-to-list 'grep-find-ignored-files "*.class")))
+
 ;; Default to unified diffs
 (setq diff-switches "-u")
 
@@ -138,6 +147,14 @@
 (speedbar-add-supported-extension ".html")
 (speedbar-add-supported-extension ".erb")
 
+(set-face-background 'vertical-border "white")
+(set-face-foreground 'vertical-border "white")
+
+(eval-after-load 'diff-mode
+  '(progn
+     (set-face-foreground 'diff-added "green4")
+     (set-face-foreground 'diff-removed "red3")))
+
 
 ;; old projects have so many wrong line-endings
 (defun dos-unix ()
@@ -151,9 +168,24 @@
 (require 'textmate)
 (textmate-mode)
 
-(eval-after-load 'nxhtml
+(eval-after-load 'mumamo
   '(eval-after-load 'zenburn
-     '(set-face-background 'mumamo-background-chunk-submode "gray22")))
+     '(ignore-errors (set-face-background
+                      'mumamo-background-chunk-submode "gray22"))))
+
+;; Platform-specific stuff
+(when (eq system-type 'darwin)
+  ;; Work around a bug on OS X where system-name is FQDN
+  (setq system-name (car (split-string system-name "\\."))))
+
+;; make emacs use the clipboard
+(setq x-select-enable-clipboard t)
+
+;; Get around the emacswiki spam protection
+(add-hook 'oddmuse-mode-hook
+          (lambda ()
+            (unless (string-match "question" oddmuse-post)
+              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
 
 (defun comment-uncomment-line-or-region (&optional arg)
@@ -272,4 +304,3 @@ With arg copies and reinserts last line."
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
-
