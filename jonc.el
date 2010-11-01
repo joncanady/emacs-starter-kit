@@ -38,3 +38,9 @@ This can be 0 for immediate, or a floating point value.")
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 (define-key global-map "\C-cr" 'org-remember)
+
+
+
+(setq org-agenda-files
+      (list "~/todo/innova.org" "~/todo/personal.org"))
+(setq org-log-done 'time)

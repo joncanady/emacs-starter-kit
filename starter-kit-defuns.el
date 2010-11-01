@@ -232,5 +232,8 @@ Symbols matching the text at point are put first in the completion list."
   (let ((name (file-relative-name file)))
     (vc-git-command buf 0 name "blame" "-w" rev)))
 
+
+
 (provide 'starter-kit-defuns)
+
 ;;; starter-kit-defuns.el ends here
